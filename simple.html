@@ -391,25 +391,31 @@ B,0,1,6
 B,1,0,7
 B,1,1,8
 
-# 1. SSH connection test
-ssh -i ~/.ssh/id_rsa_hadoop localhost
+# 1. SSH localhost
+ssh localhost
 
-# 2. SSH public key authorized_keys mein add karo
-cat ~/.ssh/id_rsa_hadoop.pub >> ~/.ssh/authorized_keys
+# 2. SSH se bahar aao, agar connection successful ho
+exit
 
-# 3. Permissions set karo
+# 3. SSH key generate karo
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+
+# 4. Public key authorized_keys mein add karo
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+# 5. Permissions set karo
 chmod 600 ~/.ssh/authorized_keys
 
-# 4. NameNode format karo (sirf fresh setup mein)
+# 6. NameNode format karo (sirf first-time setup)
 hdfs namenode -format
 
-# 5. PDSH remote command type set karo
+# 7. SSH remote command type set karo
 export PDSH_RCMD_TYPE=ssh
 
-# 6. Hadoop start karo
+# 8. Hadoop start karo
 start-all.sh
 
-# 7. Running Java processes check karo
+# 9. Processes check karo
 jps
 </body>
 </html>
